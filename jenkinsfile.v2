@@ -25,6 +25,7 @@ pipelineJob('DSL_Pipeline') {
                   }
               }
           }
+          ''')
       }
   }
 }
