@@ -1,24 +1,16 @@
-pipelineJob('dsl-pipeline') {
+pipelineJob("job-name") {
   definition {
-    cps {
-      script('''
-        pipeline {
-            agent any
-                stages {
-                    stage('Stage 1') {
-                        steps {
-                            archiveArtifacts '**/*.html'
-                        }
-                    }
-                    stage('Stage 2') {
-                        steps {
-                            sshPublisher(publishers: [sshPublisherDesc(configName: 'webserver', transfers: [sshTransfer(excludes: '', execCommand: 'cd /tmp/var/www/html;sudo mv * /var/www/html', execTimeout: 120000, flatten: true, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*.html')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
-                        }
-                    }
-                }
-            }
-
-      ''')
+    cpsScm {
+      scm {
+        git {
+          remote {
+            url("https://github.com/Nouman72884/CI-CD-for-PHP.git")
+            credentials("github-credentials")
+          }
+          branch('master')
+        }
       }
+      scriptPath("jenkinsfile")
     }
   }
+}
