@@ -17,7 +17,8 @@ pipelineJob('dsl-pipeline') {
                     }
                 }
             }
-        }
+
       ''')
+      }
     }
   }
