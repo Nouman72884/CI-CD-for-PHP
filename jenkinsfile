@@ -10,7 +10,7 @@ pipeline {
 
              stage('archiving artifacts') {
                   steps {
-                          archiveArtifacts '**/*'
+                          archiveArtifacts '**/*.py'
                         }
               }
 
