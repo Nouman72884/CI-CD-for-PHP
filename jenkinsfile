@@ -4,19 +4,19 @@ pipeline {
        stages {
             stage('SCM checkout') {
                   steps {
-                        git url: 'https://github.com/Nouman72884/CI-CD-for-PHP.git'
+                        git url: 'https://github.com/Mariatta/gh_app_demo.git'
                         }
              }
 
              stage('archiving artifacts') {
                   steps {
-                          archiveArtifacts '**/*.html'
+                          archiveArtifacts '**/*'
                         }
               }
 
               stage('transfer artifacts') {
                     steps {
-                          sshPublisher(publishers: [sshPublisherDesc(configName: 'webserver', transfers: [sshTransfer(excludes: '', execCommand: 'cd /tmp/var/www/html;sudo mv * /var/www/html', execTimeout: 120000, flatten: true, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*.html')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                          sshPublisher(publishers: [sshPublisherDesc(configName: 'webserver', transfers: [sshTransfer(excludes: '', execCommand: 'sudo apt-get update -y;sudo apt-get upgrade -y;python -m pip install -U pip;cd /tmp/tmp;python -m pip install -r requirements.txt', execTimeout: 120000, flatten: true, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/tmp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*.html')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
                           }
               }
        }
